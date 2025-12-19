@@ -921,7 +921,7 @@ function autoAnswer() {
         const sjtg = sjtgs[i];    
         // 获取并清理题干文本-----------------1.5分还是2分根据实际修改
         let sjtgText = sjtg.innerText;
-        sjtgText = cleanText(sjtgText).replace(/^\d{1,3}\./, '').replace(/\./g, '').replace(/（10分）/, '').replace(/（5分）/, '').replace(/（20分）/, '');
+        sjtgText = cleanText(sjtgText).replace(/^\d{1,3}\./, '').replace(/\./g, '').replace(/（\d{1,2}分）$/, '');
         //sjtgText = cleanText(sjtgText).replace(/^\d{1,3}\./, '').replace(/（10分）/, '').replace(/（5分）/, '').replace(/（20分）/, '');
         //console.log(sjtgText)
         // 在题库中查找答案
@@ -953,5 +953,6 @@ function autoAnswer() {
         } 
     }
 }
+
 
 autoAnswer();
