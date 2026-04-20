@@ -1,4 +1,5 @@
-const tiku = {
+//使用const全局声明tikunr{}对象不能多次运行，换做var解决 
+var tikunr = {
 '根据《民法典》第一百八十八条规定，诉讼时效期间从（）开始计算。':'C',
 '《民法典》第二百零八条规定，不动产物权的设立、变更、转让和消灭，应当依照法律规定（）。':'A',
 '《民法典》第二百零八条规定，动产物权的设立、和转让，应当依照法律规定（）。':'B',
@@ -817,7 +818,14 @@ function cleanText(text) {
     if (!text) return '';
     return text.replace(/[\n\r]/g, '').replace(/\s+/g, '');
 }
-
+// 清空所有已选答案（慎用）
+function resetAnswers() {
+    const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+    inputs.forEach(input => {
+        if (input.checked) input.checked = false;
+    });
+}
+//自动对比题库并作答
 function autoAnswer() {
     //试卷题干放在class为question-stem clearF的div中---------------------考试时根据实际修改
     const sjtgs = document.querySelectorAll('div[class^="question-stem clearF"]');
@@ -827,8 +835,8 @@ function autoAnswer() {
         let sjtgText = sjtg.innerText;
         sjtgText = cleanText(sjtgText).replace(/^\d{1,3}\./, '').replace(/\./g, '').replace(/（\d{1,2}分）$/, '');
         // 在题库中查找答案
-        if (tiku.hasOwnProperty(sjtgText)) {
-            const answer = tiku[sjtgText];          
+        if (tikunr.hasOwnProperty(sjtgText)) {
+            const answer = tikunr[sjtgText];          
             let options = [];
             //从试卷题干向上查找class包含question-panel的div元素
             const questionContainer = sjtg.closest('div[class*="question-panel"]');
@@ -853,5 +861,5 @@ function autoAnswer() {
         } 
     }
 }
-
+resetAnswers();
 autoAnswer();
