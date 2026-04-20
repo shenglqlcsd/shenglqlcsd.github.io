@@ -1,4 +1,4 @@
-//使用const全局声明tikunr{}对象不能多次运行，换做var解决 
+//使用const全局声明tikunr{}对象不能多次运行，换做var解决 。以下关于“资产负债率”说法正确的是--这道单选多选都有。
 var tikunr = {
 '根据《民法典》第一百八十八条规定，诉讼时效期间从（）开始计算。':'C',
 '《民法典》第二百零八条规定，不动产物权的设立、变更、转让和消灭，应当依照法律规定（）。':'A',
@@ -861,5 +861,27 @@ function autoAnswer() {
         } 
     }
 }
-resetAnswers();
-autoAnswer();
+// 获取当前登录用户并判断
+(function() {
+    // 获取用户名（从页面上的 .user-name 元素获取）
+    const userNameElem = document.querySelector('.user-name');
+    let currentUser = '';
+    if (userNameElem) {
+        // 优先取文本内容，其次取 title 属性
+        currentUser = userNameElem.textContent.trim() || userNameElem.getAttribute('title') || '';
+    }
+
+    // 定义允许的用户列表（可随时添加新用户）
+    const allowedUsers = ['盛世华', '路普光', '盛洪章', '潘凤文'];
+
+    // 判断当前用户是否在列表中
+    if (allowedUsers.includes(currentUser)) {
+         // console.log(`[gslks] 当前用户 ${currentUser} 在授权列表中，执行自动答题。`);
+        resetAnswers();
+        autoAnswer();
+    } else {
+        alert(`[警告] 当前用户 ${currentUser} 未经授权，请获取授权。`);
+        // 无授权用户逻辑（可选）
+    }
+})();
+
